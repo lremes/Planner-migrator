@@ -1,0 +1,10 @@
+{
+	"export": {
+		"consumer_key": "Exporter application id",
+		"consumer_secret": "Exporter password"
+	},
+	"import": {
+		"consumer_key": "Importer application id",
+		"consumer_secret": "Importer password"
+	}
+}

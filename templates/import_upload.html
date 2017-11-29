@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <title>Planner migrator</title>
+    </head>
+    <body>
+        <h1>File uploaded </h1>
+        {{ file }}
+        <form action = "{{url_for('import_start')}}" method = "POST">
+            <p><input type="submit" value="Start import" style="width:400px"></p>
+        </form>
+    </body>
+</html>
