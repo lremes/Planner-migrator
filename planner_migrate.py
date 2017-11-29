@@ -53,7 +53,7 @@ import_permissions = [
 new_planner = oauth.remote_app(
     'PlannerImporter',
     consumer_key=config['import']['consumer_key'],
-    consumer_secret=config['import']['consumer_key'],
+    consumer_secret=config['import']['consumer_secret'],
     request_token_params={'scope': ' '.join(import_permissions)},
     base_url='https://graph.microsoft.com/v1.0/',
     request_token_url=None,
@@ -179,7 +179,7 @@ def import_data():
     # create new plan
     #groups = migrator.get("users/%s/memberOf" % (me.data.get('id')), session.get('microsoft_token')[0])
     #groups = migrator.get("me/memberOf" % (me.data.get('id')), session.get('microsoft_token')[0])
-    groups = importer.get("me/memberOf", session.get('microsoft_token')[0])
+    groups = importer.get("me/memberOf", session.get('microsoft_token2')[0])
     # find correct group
     for g in groups:
         print g
@@ -192,7 +192,7 @@ def import_data():
     # add comments
     # add attachments
     
-    return render_template('import_done.html', me=me.data)
+    return render_template('import_done.html', me=me.data, groups=groups)
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -231,7 +231,6 @@ def import_start():
             
 @app.route('/login/import')
 def import_login():
-    print "IMPORT STARTED"
     response = new_planner.authorized_response()
     if response is None:
         return "Access Denied: Reason=%s\nError=%s" % (
@@ -262,7 +261,7 @@ def get_microsoft_oauth_token():
     return session.get('microsoft_token')
 
 @new_planner.tokengetter
-def get_microsoft_oauth_token():
+def get_microsoft_oauth_token2():
     return session.get('microsoft_token2')
 
 if __name__ == '__main__':
